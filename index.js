@@ -27,6 +27,26 @@ log('WEBAPI: ' + JSON.stringify(config, null, 2));
 
 // API
 
+app.get('/api/config/credentials', (req, res) => {
+  // Return /etc/caddy/htpass as JSON
+  fs.readFile('/etc/caddy/htpass', 'utf8', (err, data) => {
+    if (err) {
+      log(`ERROR: Failed to read /etc/caddy/htpass: ${err}`);
+      res.status(500).json({ error: 'Failed to read /etc/caddy/htpass' });
+    } else {
+      try {
+        const credentials = JSON.parse(data);
+        res.json(credentials);
+  
+        log('INFO: GET /api/config/credentials');
+      } catch (err) {
+        log(`ERROR: GET /api/config/credentials failed: ${err}`);
+        res.status(500).json({ error: 'Failed to parse /etc/caddy/htpass' });
+      }
+    }
+  })
+})
+
 // Serve config as JSON
 app.get('/api/config', (req, res) => {
     res.json(config);
