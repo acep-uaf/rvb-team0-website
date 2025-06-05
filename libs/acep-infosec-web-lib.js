@@ -130,7 +130,7 @@ function gen_api_usage(req) {
 
     usage['API']['CONFIG']['CREDENTIALS'] = {}
     usage['API']['CONFIG']['CREDENTIALS']['DESC'] = "API Credentials JSON"
-    usage['API']['CONFIG']['CREDENTIALS']['URL'] = base_url + '/api/credentials';
+    usage['API']['CONFIG']['CREDENTIALS']['URL'] = base_url + '/api/config/credentials';
 
     return usage;
 }
