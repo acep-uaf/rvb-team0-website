@@ -27,9 +27,13 @@ log('WEBAPI: ' + JSON.stringify(config, null, 2));
 
 // API
 
+// API Credentials
 app.get('/api/config/credentials', (req, res) => {
   const fs = require('fs');
   fs.readFile('/etc/caddy/htpasswd', 'utf8', (err, data) => {
+    log('DEBUG: Reading /etc/caddy/htpasswd');
+    log(data);
+    
     if (err) {
       log(`ERROR: Failed to read /etc/caddy/htpasswd: ${err}`);
       res.status(500).json({ error: 'Failed to read /etc/caddy/htpasswd' });
